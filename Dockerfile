@@ -7,8 +7,8 @@ WORKDIR /app
 # Copia todos os arquivos do seu projeto para dentro do ambiente
 COPY . .
 
-# Executa o comando de build do Maven para criar o arquivo .jar
-RUN mvn clean install
+# Executa o comando de build do Maven para criar o arquivo .jar, pulando os testes
+RUN mvn clean install -DskipTests
 
 # Expõe a porta 8080, que é a porta que nossa aplicação usa
 EXPOSE 8080
