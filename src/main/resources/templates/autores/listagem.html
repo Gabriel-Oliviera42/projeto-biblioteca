@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Listagem de Autores</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <h1>
+        Listagem de Autores
+        <a href="/autores/formulario">Cadastrar Novo Autor</a>
+    </h1>
+
+    <form action="/autores/listagem" method="get" style="margin-bottom: 1em;">
+        <label for="nome">Buscar por Nome:</label>
+        <input id="nome" name="nome">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="autor : ${listaDeAutores}">
+            <td th:text="${autor.nome}"></td>
+            <td>
+                <a th:href="@{/autores/formulario(id=${autor.id})}">Editar</a>
+                <form th:action="@{/autores/deletar}" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${autor.id}" />
+                    <button type="submit">Deletar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Cadastro de Livros</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <h1>Cadastro de Livros</h1>
+
+    <form th:action="${livro == null ? '/livros/cadastrar' : '/livros/alterar'}" method="post">
+        <input type="hidden" name="id" th:value="${livro?.id}">
+        <div>
+            <label for="titulo">Título:</label>
+            <input id="titulo" name="titulo" th:value="${livro?.titulo}">
+        </div>
+        <div>
+            <label for="anoPublicacao">Ano de Publicação:</label>
+            <input id="anoPublicacao" name="anoPublicacao" type="number" th:value="${livro?.anoPublicacao}">
+        </div>
+        <div>
+            <label for="genero">Gênero:</label>
+            <select id="genero" name="generoId">
+                <option
+                        th:each="genero : ${generos}"
+                        th:value="${genero.id}"
+                        th:text="${genero.nome}"
+                        th:selected="${livro != null && livro.genero != null && livro.genero.id == genero.id}">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label for="autores">Autores (segure Ctrl para selecionar mais de um):</label>
+            <select id="autores" name="autorIds" multiple="multiple" size="5">
+                <option
+                        th:each="autor : ${autores}"
+                        th:value="${autor.id}"
+                        th:text="${autor.nome}"
+                        th:selected="${livro != null and livro.autores.contains(autor)}">
+                </option>
+            </select>
+        </div>
+
+        <input type="submit" th:value="${livro != null ? 'Atualizar' : 'Cadastrar'}">
+    </form>
+</div>
+</body>
+</html>

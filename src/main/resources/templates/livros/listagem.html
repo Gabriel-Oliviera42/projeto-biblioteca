@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Listagem de Livros</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <h1>
+        Listagem de Livros
+        <a href="/livros/formulario">Cadastrar Novo Livro</a>
+    </h1>
+
+    <form action="/livros/listagem" method="get" style="display: flex; align-items: center; gap: 10px; margin-bottom: 1em;">
+        <div>
+            <label for="anoInicio">De:</label>
+            <input id="anoInicio" name="anoInicio" type="number" placeholder="Ano Início">
+        </div>
+        <div>
+            <label for="anoFim">Até:</label>
+            <input id="anoFim" name="anoFim" type="number" placeholder="Ano Fim">
+        </div>
+        <button type="submit">Buscar por Ano</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autores</th>
+            <th>Ano de Publicação</th>
+            <th>Gênero</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="livro : ${listaDeLivros}">
+            <td th:text="${livro.titulo}"></td>
+            <td th:text="${#strings.listJoin(livro.autores.![nome], ', ')}"></td>
+            <td th:text="${livro.anoPublicacao}"></td>
+            <td th:text="${livro.genero.nome}"></td>
+            <td>
+                <a th:href="@{/livros/formulario(id=${livro.id})}">Editar</a>
+                <form th:action="@{/livros/deletar}" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${livro.id}" />
+                    <button type="submit">Deletar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

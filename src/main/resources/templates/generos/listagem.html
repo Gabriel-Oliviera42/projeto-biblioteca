@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Listagem de Gêneros</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <h1>
+        Listagem de Gêneros
+        <a href="/generos/formulario">Cadastrar Novo Gênero</a>
+    </h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Ações</th> </tr>
+        </thead>
+        <tbody>
+        <tr th:each="genero : ${listaDeGeneros}">
+            <td th:text="${genero.nome}"></td>
+            <td>
+                <a th:href="@{/generos/formulario(id=${genero.id})}">Editar</a>
+
+                <form action="/generos/deletar" method="post" style="display: inline;">
+                    <input type="hidden" name="id" th:value="${genero.id}">
+                    <button type="submit">Deletar</button>
+                </form>
+                
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

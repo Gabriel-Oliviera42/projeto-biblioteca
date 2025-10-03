@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Busca de Livros por Gênero</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <h1>Busca de Livros por Gênero</h1>
+
+    <form action="/livros/por-genero" method="get">
+        <label for="genero">Selecione um Gênero:</label>
+        <select id="genero" name="generoId">
+            <option
+                    th:each="genero : ${generos}"
+                    th:value="${genero.id}"
+                    th:text="${genero.nome}">
+            </option>
+        </select>
+        <button type="submit">Buscar</button>
+    </form>
+    <br>
+
+    <table th:if="${listaDeLivros != null}">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Ano de Publicação</th>
+            <th>Autores</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(listaDeLivros)}">
+            <td colspan="3">Nenhum livro encontrado para este gênero.</td>
+        </tr>
+        <tr th:each="livro : ${listaDeLivros}">
+            <td th:text="${livro.titulo}"></td>
+            <td th:text="${livro.anoPublicacao}"></td>
+            <td th:text="${#strings.listJoin(livro.autores.![nome], ', ')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

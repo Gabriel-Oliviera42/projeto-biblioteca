@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Autores Sem Livros</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <h1>Autores Sem Livros Cadastrados</h1>
+    <p>Esta lista mostra os autores que não possuem nenhum livro associado no sistema.</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nome do Autor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(listaDeAutores)}">
+            <td>Todos os autores possuem livros cadastrados!</td>
+        </tr>
+        <tr th:each="autor : ${listaDeAutores}">
+            <td th:text="${autor.nome}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

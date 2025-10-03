@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <title>Busca de Livros por Autor</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <h1>Busca de Livros por Autor</h1>
+
+    <form action="/livros/por-autor" method="get">
+        <label for="autor">Selecione um Autor:</label>
+        <select id="autor" name="autorId">
+            <option
+                    th:each="autor : ${autores}"
+                    th:value="${autor.id}"
+                    th:text="${autor.nome}">
+            </option>
+        </select>
+        <button type="submit">Buscar</button>
+    </form>
+    <br>
+
+    <table th:if="${listaDeLivros != null}">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Ano de Publicação</th>
+            <th>Gênero</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(listaDeLivros)}">
+            <td colspan="3">Nenhum livro encontrado para este autor.</td>
+        </tr>
+        <tr th:each="livro : ${listaDeLivros}">
+            <td th:text="${livro.titulo}"></td>
+            <td th:text="${livro.anoPublicacao}"></td>
+            <td th:text="${livro.genero.nome}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

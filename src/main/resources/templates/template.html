@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+    <title>Minha Biblioteca</title>
+</head>
+<body>
+<header>
+    <nav>
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/livros/listagem}">Livros</a>
+        <a th:href="@{/autores/listagem}">Autores</a>
+        <a th:href="@{/generos/listagem}">Gêneros</a>
+        <a th:href="@{/livros/por-autor}">Busca por Autor</a>
+        <a th:href="@{/livros/por-genero}">Busca por Gênero</a>
+        <a th:href="@{/autores/sem-livros}">Autores Sem Livros</a>
+    </nav>
+</header>
+
+<main layout:fragment="conteudo"></main>
+
+</body>
+</html>
